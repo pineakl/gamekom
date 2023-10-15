@@ -7,11 +7,14 @@ function Player.create(x, y, speed)
     self.y = y
     self.sprite = love.graphics.newImage("Assets/Sprites/ship-a1.png")
     self.speed = speed
+    self.direction = {}
+    self.direction.x = 0;
+    self.direction.y = 0;
 
     return self
 end
 
-function Player.update(dt, self)
+function Player.input(self)
     -- setup nilai
     local direction = {}
     direction.x = 0
@@ -31,9 +34,13 @@ function Player.update(dt, self)
         direction.y = direction.y + 1
     end
 
+    self.direction = direction
+end
+
+function Player.update(dt, self)
     -- ubah posisi objek berdasarkan arah
-    self.x = self.x + direction.x * self.speed
-    self.y = self.y + direction.y * self.speed
+    self.x = self.x + self.direction.x * self.speed
+    self.y = self.y + self.direction.y * self.speed
 end
 
 function Player.draw(self)
